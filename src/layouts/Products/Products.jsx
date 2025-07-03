@@ -1,28 +1,60 @@
-import React from 'react'
-import milk from '../../assets/milk.png'
-import shake from '../../assets/protein-shake.png'
-import smoothie from '../../assets/smoothie.png'
+import React, { useState } from 'react';
+import milk from '../../assets/milk.png';
+import shake from '../../assets/protein-shake.png';
+import smoothie from '../../assets/smoothie.png';
+import './Product.css';
+
+const products = [
+  { img: milk, name: 'Choco de Leche' },
+  { img: shake, name: 'Choco de Chocolate con Proteína' },
+  { img: smoothie, name: 'Smoothie de Chocolate' }
+];
 
 const Products = () => {
+  const [index, setIndex] = useState(0);
+  const [selectedIndex, setSelectedIndex] = useState(0); // Inicializado en 0
+
+  const handleClick = (clickedIndex) => {
+    setIndex(clickedIndex);
+    setSelectedIndex(clickedIndex);
+  };
+
   return (
-    <section className="products">
-      <h2>Nuestros Productos</h2>
-      <div className="product-list">
-        <div className="product-item">
-          <img src={milk} alt="Chocolate Milk" />
-          <p>Choco de Leche</p>
-        </div>
-        <div className="product-item">
-          <img src={shake} alt="Protein Chocolate Shake" />
-          <p>Choco de Chocolate con Proteina</p>
-        </div>
-        <div className="product-item">
-          <img src={smoothie} alt="Chocolate Smoothie"/>
-          <p>Smoothie de Chocolate</p>
+    <section className="products-carousel">
+      <h2>¡Algunos de Nuestros Productos!</h2>
+      <div className="carousel">
+        <div className="carousel-track">
+          {products.map((product, i) => {
+            const leftIndex = (index - 1 + products.length) % products.length;
+            const rightIndex = (index + 1) % products.length;
+
+            let position = 'hidden';
+            if (i === index) position = 'center';
+            else if (i === leftIndex) position = 'left';
+            else if (i === rightIndex) position = 'right';
+
+            return (
+              <div
+                className={`carousel-item ${position}`}
+                key={i}
+                onClick={() => handleClick(i)}
+                style={{ cursor: position !== 'hidden' ? 'pointer' : 'default' }}
+              >
+                <img src={product.img} alt={product.name} />
+                <p>{product.name}</p>
+
+                {position === 'center' && selectedIndex === i && (
+                  <button className="btn">
+                    Ver en Tienda
+                  </button>
+                )}
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default Products
+export default Products;
