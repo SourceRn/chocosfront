@@ -5,9 +5,9 @@ import smoothie from '../../assets/smoothie.png';
 import './Product.css';
 
 const products = [
-  { img: milk, name: 'Choco de Leche' },
-  { img: shake, name: 'Choco de Chocolate con Proteína' },
-  { img: smoothie, name: 'Smoothie de Chocolate' }
+  { img: milk, name: 'Choco de Leche', link: 'https://chocos-ecommerce.vercel.app/product/1' },
+  { img: shake, name: 'Choco de Chocolate con Proteína', link: 'https://chocos-ecommerce.vercel.app/product/2' },
+  { img: smoothie, name: 'Smoothie de Chocolate', link: 'https://chocos-ecommerce.vercel.app/product/3' }
 ];
 
 const Products = () => {
@@ -44,9 +44,9 @@ const Products = () => {
                 <p>{product.name}</p>
 
                 {position === 'center' && selectedIndex === i && (
-                  <button className="btn">
+                  <a className="btn" href={product.link} target="_blank" rel="noopener noreferrer">
                     Ver en Tienda
-                  </button>
+                  </a>
                 )}
               </div>
             );
