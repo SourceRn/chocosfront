@@ -24,7 +24,6 @@ const LeadForm = () => {
               placeholder="Ingresa tu correo"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              required
             />
             <button type="submit">Suscribirme</button>
           </form>
